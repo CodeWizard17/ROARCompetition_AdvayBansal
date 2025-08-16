@@ -179,8 +179,8 @@ class ThrottleController:
                             (
                                 speed_data.current_speed
                                 - speed_data.recommended_speed_now
-                            )
-                            / 3
+                            )/7
+                            
                         )
                     )
                     # self.brake_ticks = 1, or (1 or 2 but not more)
@@ -408,38 +408,32 @@ class ThrottleController:
         return radius
 
     def get_target_speed(self, radius: float, current_section: int):
-        """Returns a target speed based on the radius of the turn and the section it is in
-
-        Args:
-            radius (float): The calculated radius of the turn
-            current_section (int): The current section of the track the car is in
-
-        Returns:
-            float: The maximum speed the car can go around the corner at
-        """
-
-        mu = 2.75
+        """Returns a target speed based on the radius of the turn and the section it is in"""
+        mu = 2.75  # default
 
         if radius >= self.max_radius:
             return self.max_speed
 
-        if current_section == 2:
-            mu = 3.35
-        if current_section == 3:
-            mu = 3.3
-        if current_section == 4:
-            mu = 2.85
-        if current_section == 6:
-            mu = 3.3
-        if current_section == 9:
-            mu = 2.1
+        # Fine-tuned section-based mu values (0–15 range ready)
+        section_mu = {
+            1: 3.00,
+            2: 3.35,
+            3: 3.4,
+            4: 2.95,
+            6: 3.3,
+            7: 2.75,
+            8: 2.75,
+            9: 2.1
+        }
+
+        mu = section_mu.get(current_section, mu)
 
         target_speed = math.sqrt(mu * 9.81 * radius) * 3.6
 
-        return max(
-            20, min(target_speed, self.max_speed)
-        )  # clamp between 20 and max_speed
+        if self.display_debug:
+            print(f"[SpeedCalc] Sec {current_section} | Radius: {round(radius,1)} | mu: {mu} | TargetSpeed: {round(target_speed,1)}")
 
+        return max(20, min(target_speed, self.max_speed))  # Clamp between 20 and max_speed
     def print_speed(
         self, text: str, s1: float, s2: float, s3: float, s4: float, curr_s: float
     ):
