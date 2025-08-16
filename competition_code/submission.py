@@ -97,16 +97,16 @@ class RoarCompetitionSolution:
         )
 
         sectionLocations = [
-            [-278, 372], # Section 0 start location
-            [64, 890], # Section 1 start location
+            [-278, 372],   # Section 0
+            [-78, 869], # Section 1
             [511, 1037], # Section 2 start location
             [762, 908], # Section 3 start location
             [198, 307], # Section 4 start location
             [-11, 60], # Section 5 start location
             [-85, -339], # Section 6 start location
             [-210, -1060], # Section 7 start location 
-            [-318, -991], # Section 8 start location
-            [-352, -119], # Section 9 start location
+            [-318, -991], # Section 8 start location 
+            [-352, -119],  # Section 9
         ]
         for i in sectionLocations:
             self.section_indeces.append(
