@@ -5,24 +5,6 @@
 
 Requires `progress` module and ROAR_PY
 
-## Time spread
-
-Official Run:
-325.6 seconds
-
-Unofficial time over 10 runs:
-
-- Average: 325.55 seconds
-- Fastest: 325.250 seconds
-- Slowest: 325.850 seconds
-
-Reliability:
-
-- 10 runs with no crashes
-- 20 runs with 2 crashes
-
-> [!NOTE]
-> Run-to-run variance can cause crashes or cause a slower or faster time. Repeated testing with debugCompetitionRunner.py is recommended to filter out outliers.
 
 ## Waypoints
 
